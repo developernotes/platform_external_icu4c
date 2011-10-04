@@ -62,13 +62,13 @@ src_files += \
 	umsg.cpp        unesctrn.cpp uni2name.cpp \
 	unum.cpp        uregexc.cpp  uregex.cpp   \
 	usearch.cpp     utrans.cpp   windtfmt.cpp \
- 	winnmfmt.cpp    zonemeta.cpp zstrfmt.cpp  \
- 	numsys.cpp      chnsecal.cpp \
- 	cecal.cpp       coptccal.cpp ethpccal.cpp \
- 	brktrans.cpp    wintzimpl.cpp plurrule.cpp \
- 	plurfmt.cpp     dtitvfmt.cpp dtitvinf.cpp \
- 	tmunit.cpp      tmutamt.cpp  tmutfmt.cpp  \
- 	colldata.cpp    bmsearch.cpp bms.cpp      \
+	winnmfmt.cpp    zonemeta.cpp zstrfmt.cpp  \
+	numsys.cpp      chnsecal.cpp \
+	cecal.cpp       coptccal.cpp ethpccal.cpp \
+	brktrans.cpp    wintzimpl.cpp plurrule.cpp \
+	plurfmt.cpp     dtitvfmt.cpp dtitvinf.cpp \
+	tmunit.cpp      tmutamt.cpp  tmutfmt.cpp  \
+	colldata.cpp    bmsearch.cpp bms.cpp      \
         currpinf.cpp    uspoof.cpp   uspoof_impl.cpp \
         uspoof_build.cpp     \
         regextxt.cpp    selfmt.cpp   uspoof_conf.cpp \
@@ -94,12 +94,12 @@ LOCAL_C_INCLUDES := $(c_includes)
 LOCAL_CFLAGS += -D_REENTRANT -DPIC -DU_I18N_IMPLEMENTATION -fPIC 
 LOCAL_CFLAGS += -O3
 
-LOCAL_SHARED_LIBRARIES += libicuuc
-LOCAL_LDLIBS += -lpthread -lm
+LOCAL_STATIC_LIBRARIES += libicuuc
+LOCAL_LDLIBS += -lc
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libicui18n
 
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_STATIC_LIBRARY)
 
 
 #
@@ -116,7 +116,7 @@ ifeq ($(WITH_HOST_DALVIK),true)
     LOCAL_CFLAGS += -D_REENTRANT -DU_I18N_IMPLEMENTATION
 
     LOCAL_SHARED_LIBRARIES += libicuuc
-    LOCAL_LDLIBS += -lpthread -lm
+		LOCAL_LDLIBS += -lc
     LOCAL_MODULE_TAGS := optional
     LOCAL_MODULE := libicui18n
 

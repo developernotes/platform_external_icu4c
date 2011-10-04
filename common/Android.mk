@@ -54,10 +54,10 @@ src_files := \
 	ustring.c          ustrtrns.c         \
 	ustr_wcs.c         utf_impl.c         \
 	utrace.c           utrie.c            \
- 	utypes.c           wintz.c            \
- 	utrie2_builder.c   icuplug.c          \
- 	propsvec.c         ulist.c            \
- 	uloc_tag.c
+	utypes.c           wintz.c            \
+	utrie2_builder.c   icuplug.c          \
+	propsvec.c         ulist.c            \
+	uloc_tag.c
 
 src_files += \
         bmpset.cpp      unisetspan.cpp   \
@@ -112,12 +112,13 @@ c_includes := \
 # We make the ICU data directory relative to $ANDROID_ROOT on Android, so both
 # device and sim builds can use the same codepath, and it's hard to break one
 # without noticing because the other still works.
-local_cflags := '-DICU_DATA_DIR_PREFIX_ENV_VAR="ANDROID_ROOT"'
-local_cflags += '-DICU_DATA_DIR="/usr/icu"'
+#local_cflags := '-DICU_DATA_DIR_PREFIX_ENV_VAR="ANDROID_ROOT"'
+#local_cflags += '-DICU_DATA_DIR="/usr/icu"'
 
-local_cflags += -D_REENTRANT -DU_COMMON_IMPLEMENTATION -O3
-local_ldlibs := -lpthread -lm
-
+local_cflags += -D_REENTRANT -DU_COMMON_IMPLEMENTATION -O3 -DHAVE_ANDROID_OS=1
+local_cflags += '-DICU_DATA_DIR_PREFIX_ENV_VAR="SQLCIPHER_ICU_PREFIX"'
+local_cflags += '-DICU_DATA_DIR="/icu"'
+local_ldlibs := -lc
 
 #
 # Build for the target (device).
@@ -130,7 +131,7 @@ LOCAL_CFLAGS := $(local_cflags) -DPIC -fPIC
 LOCAL_LDLIBS += $(local_ldlibs)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libicuuc
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_STATIC_LIBRARY)
 
 
 #
